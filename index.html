@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Yashwant K S - BCA student and web developer portfolio">
+<title>Yashwant K S | Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top" id="top">
+  <a href="#home" class="logo" aria-label="Yashwant K S home">yashwant<span>.</span></a>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="#about">About me</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact" class="nav-cta">Contact</a>
+  </nav>
+  <button class="theme-btn" id="themeBtn" aria-label="Switch theme">◐</button>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <div class="hero-text">
+    <p class="status" id="status"><span class="pulse"></span>Open to internships and entry-level roles</p>
+    <p class="bigname" aria-hidden="true">Yashwant <span>K S</span></p>
+    <h1>I design and build <mark>simple, useful</mark> websites.</h1>
+    <p class="lead" id="headline">I'm Yashwant K S, a BCA student who enjoys web development, Python and databases, and learns best by building real projects.</p>
+    <div class="cta"><a href="#projects" class="btn btn-primary">See my projects</a><a href="#contact" class="btn btn-line">Say hello</a></div>
+  </div>
+  <figure class="portrait"><img src="images/yashwant.jpg" alt="Portrait of Yashwant K S" width="640" height="792"></figure>
+  <p class="meta"><b id="cProj">3</b> projects &nbsp;|&nbsp; <b id="cSkill">7</b> skills &nbsp;|&nbsp; BCA 2027</p>
+</section>
+
+<section id="about" class="section">
+  <h2>About me</h2>
+  <div class="about-grid">
+    <div class="prose">
+      <p>I am a Bachelor of Computer Applications student at STG First Grade College, Chinakuralli, Mandya. I like turning small ideas into working web pages and apps.</p>
+      <p>I am looking for entry-level roles and internships where I can apply what I know, learn from experienced developers and keep growing step by step.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Course</dt><dd>Bachelor of Computer Applications</dd></div>
+      <div><dt>Years</dt><dd>2024 to 2027</dd></div>
+      <div><dt>College</dt><dd>STG First Grade College</dd></div>
+      <div><dt>Focus</dt><dd>Web development</dd></div>
+      <div><dt>Databases</dt><dd>SQL</dd></div>
+      <div><dt>Based in</dt><dd>Mandya, Karnataka</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <h2>Skills</h2>
+  <p class="sub">Filled dots show my comfort level, out of five.</p>
+  <ul class="skills" id="skillList"></ul>
+</section>
+
+<section id="projects" class="section">
+  <h2>Featured projects</h2>
+  <div class="filters" id="filters" role="group" aria-label="Filter projects">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="site">Website</button>
+    <button class="chip" data-filter="app">Web app</button>
+    <button class="chip" data-filter="tool">Utility</button>
+  </div>
+  <div class="projects" id="projectList"></div>
+</section>
+
+<section id="education" class="section">
+  <h2>Education</h2>
+  <ol class="timeline">
+    <li><span class="yr">2024 to 2027</span><h3>Bachelor of Computer Applications</h3><p>STG First Grade College, Chinakuralli, Mandya</p><span class="badge">Currently pursuing</span></li>
+  </ol>
+</section>
+
+<section id="contact" class="section contact">
+  <div>
+    <h2>Contact</h2>
+    <p class="sub">Have an internship, project or job in mind? Send a message and I'll reply.</p>
+    <ul class="links">
+      <li><a id="mailLink" href="mailto:yashwant.email@gmail.com">yashwant.email@gmail.com</a></li>
+      <li><a id="gitLink" href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a id="linLink" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+  <form class="form" id="contactForm" novalidate>
+    <label>Name<input type="text" id="name" placeholder="Your name" required></label>
+    <label>Email<input type="email" id="email" placeholder="you@example.com" required></label>
+    <label>Message<textarea id="message" rows="5" placeholder="How can I help?" required></textarea></label>
+    <p class="form-error" id="formError" role="alert"></p>
+    <button type="submit" class="btn btn-primary">Send message</button>
+  </form>
+</section>
+</main>
+
+<footer class="footer"><p class="footer-name" aria-hidden="true">Yashwant K S</p><p>© <span id="year"></span> Yashwant K S. Built with HTML, CSS and JavaScript.</p></footer>
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+<div class="toast" id="toast" role="status">Message sent. Thank you!</div>
+<script src="js/script.js"></script>
+</body>
+</html>

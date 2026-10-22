@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yashwant K S | Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2e8;--sf:#fbfcf7;--ink:#10231e;--mu:#5a6b63;--ln:#d5ddcb;--ac:#f2a900;--as:#fbefc9;--tl:#16463a;--sh:0 8px 24px rgba(16,35,30,.07);--serif:'Bricolage Grotesque',system-ui,sans-serif;--sans:'Instrument Sans',system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1713;--sf:#12231d;--ink:#eef2e8;--mu:#97a89f;--ln:#23382f;--ac:#ffbf2e;--as:#2a2410;--tl:#7fd1b0;--sh:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1713;--sf:#12231d;--ink:#eef2e8;--mu:#97a89f;--ln:#23382f;--ac:#ffbf2e;--as:#2a2410;--tl:#7fd1b0;--sh:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--serif)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:var(--sf);border-right:1px solid var(--ln);padding:26px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:1.2rem}
+.mark{width:36px;height:36px;border-radius:50%;background:var(--ac);color:#10231e;display:grid;place-items:center}
+nav{display:flex;flex-direction:column;gap:4px;flex:1}
+nav button{display:flex;justify-content:space-between;align-items:center;gap:8px;background:none;border:0;padding:10px 12px;border-radius:10px;color:var(--mu);cursor:pointer;text-align:left;font-weight:500}
+nav button:hover{background:var(--bg);color:var(--ink)}
+nav button.on{background:var(--as);color:var(--ac)}
+.dot{background:var(--ac);color:#10231e;font-size:.7rem;border-radius:99px;padding:0 7px}
+.side-btn{border:1px solid var(--ln);background:var(--bg);border-radius:10px;padding:9px;cursor:pointer;margin-top:6px;width:100%}
+main{padding:32px clamp(16px,4vw,48px);min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.top h1{font-size:2rem}
+.top p{color:var(--mu);font-size:.92rem}
+.btn{background:var(--ac);color:#10231e;border:0;border-radius:99px;padding:9px 20px;font-weight:600;cursor:pointer}
+.btn.ghost{background:none;border:1px solid var(--ln);color:var(--ink)}
+.btn.sm{padding:5px 13px;font-size:.82rem}
+.btn.del{background:none;border:1px solid var(--ln);color:#d62828}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:18px;box-shadow:var(--sh)}
+.card.pad{padding:22px}
+.stat b{display:block;font-family:var(--serif);font-size:2rem;line-height:1.1}
+.stat span{color:var(--mu);font-size:.85rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card h3{margin-bottom:14px;font-size:1.15rem}
+.bar{display:grid;grid-template-columns:96px 1fr 24px;align-items:center;gap:10px;font-size:.85rem;margin-bottom:9px}
+.bar i{display:block;height:8px;border-radius:99px;background:var(--ln);overflow:hidden}
+.bar i u{display:block;height:100%;background:var(--tl);border-radius:99px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{text-align:left;color:var(--mu);font-weight:500;font-size:.8rem;padding:8px 10px;border-bottom:1px solid var(--ln)}
+td{padding:12px 10px;border-bottom:1px solid var(--ln);vertical-align:top}
+tr:last-child td{border:0}
+.tag{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:99px;border:1px solid var(--ln);color:var(--tl);margin:0 4px 4px 0}
+.act{display:flex;gap:6px;white-space:nowrap}
+.msg{padding:14px 0;border-bottom:1px solid var(--ln)}
+.msg:last-child{border:0}
+.msg.new b::after{content:"New";background:var(--ac);color:#10231e;font-size:.62rem;border-radius:99px;padding:1px 7px;margin-left:8px;vertical-align:middle}
+.msg small{color:var(--mu)}
+.msg p{margin:6px 0 10px;color:var(--mu)}
+.empty{color:var(--mu);padding:18px 0;text-align:center}
+.lvl{display:flex;gap:4px}
+.lvl button{width:22px;height:9px;border:0;border-radius:99px;background:var(--ln);cursor:pointer}
+.lvl button.on{background:var(--tl)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ln)}
+.row:last-child{border:0}
+.row .n{flex:1;font-weight:600}
+.row .n small{display:block;color:var(--mu);font-weight:400}
+form.f{display:grid;gap:14px}
+label{display:grid;gap:5px;font-size:.85rem;font-weight:600}
+input,select,textarea{padding:10px 12px;border-radius:10px;border:1px solid var(--ln);background:var(--bg);font-weight:400}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--as);border-color:var(--ac)}
+.sw{display:flex;align-items:center;gap:10px;font-weight:500}
+.view{display:none}.view.on{display:block}
+.modal{position:fixed;inset:0;background:rgba(15,15,20,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.box{background:var(--sf);border-radius:20px;padding:26px;width:100%;max-width:520px;max-height:90vh;overflow:auto}
+.box h3{font-size:1.4rem;margin-bottom:14px}
+.btns{display:flex;gap:10px;justify-content:flex-end}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--tl);color:var(--bg);padding:10px 22px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:90}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+#login{position:fixed;inset:0;background:var(--bg);z-index:80;display:flex;align-items:center;justify-content:center;padding:16px}
+#login .card{max-width:360px;width:100%}
+#login h1{font-size:1.7rem;margin-bottom:6px}
+.hint{color:var(--mu);font-size:.82rem;margin-top:10px}
+.err{color:#d62828;font-size:.85rem;min-height:1.2em}
+@media(max-width:860px){
+  .app{grid-template-columns:1fr}
+  aside{position:static;height:auto;flex-direction:row;align-items:center;padding:12px 14px;gap:10px;overflow-x:auto}
+  .brand span:last-child{display:none}
+  nav{flex-direction:row;flex:none}
+  nav button{white-space:nowrap}
+  .side-btn{width:auto;margin:0;white-space:nowrap}
+  .side-x{display:flex;gap:6px}
+  .two{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="card pad">
+    <h1>Admin sign in</h1>
+    <p class="hint" style="margin:0 0 16px">Manage your portfolio content.</p>
+    <form class="f" id="loginForm">
+      <label>Password<input type="password" id="pw" autocomplete="current-password"></label>
+      <p class="err" id="loginErr"></p>
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+    <p class="hint">Demo password: <b>admin123</b>. This screen is frontend-only and is not real security.</p>
+  </div>
+</div>
+
+<div class="app">
+  <aside>
+    <div class="brand"><span class="mark">Y</span><span>Yashwant</span></div>
+    <nav id="nav">
+      <button data-v="overview" class="on">Overview</button>
+      <button data-v="projects">Projects</button>
+      <button data-v="skills">Skills</button>
+      <button data-v="messages">Messages <span class="dot" id="unread"></span></button>
+      <button data-v="settings">Settings</button>
+    </nav>
+    <div class="side-x">
+      <button class="side-btn" id="theme">Toggle theme</button>
+      <button class="side-btn" id="logout">Sign out</button>
+    </div>
+  </aside>
+
+  <main>
+    <section class="view on" id="v-overview">
+      <div class="top"><div><h1>Overview</h1><p id="greet"></p></div><button class="btn" data-go="projects" data-add>+ New project</button></div>
+      <div class="cards" id="stats"></div>
+      <div class="two">
+        <div class="card pad"><h3>Skill levels</h3><div id="bars"></div></div>
+        <div class="card pad"><h3>Recent messages</h3><div id="recent"></div></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-projects">
+      <div class="top"><div><h1>Projects</h1><p>Add, edit or remove portfolio projects.</p></div><button class="btn" id="addProject">+ New project</button></div>
+      <div class="card scroll"><table><thead><tr><th>Project</th><th>Type</th><th>Tags</th><th></th></tr></thead><tbody id="pBody"></tbody></table></div>
+    </section>
+
+    <section class="view" id="v-skills">
+      <div class="top"><div><h1>Skills</h1><p>Click the bars to set a level from 1 to 5.</p></div></div>
+      <div class="card pad" style="margin-bottom:16px">
+        <form class="f" id="skillForm" style="grid-template-columns:1fr auto auto;align-items:end">
+          <label>New skill<input id="sName" placeholder="e.g. React" required></label>
+          <label>Level<select id="sLvl"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></label>
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="card pad" id="sList"></div>
+    </section>
+
+    <section class="view" id="v-messages">
+      <div class="top"><div><h1>Messages</h1><p>Enquiries sent from the contact form.</p></div><button class="btn ghost" id="readAll">Mark all read</button></div>
+      <div class="card pad" id="mList"></div>
+    </section>
+
+    <section class="view" id="v-settings">
+      <div class="top"><div><h1>Settings</h1><p>Profile details shown on your portfolio.</p></div></div>
+      <div class="two">
+        <div class="card pad">
+          <form class="f" id="profForm">
+            <label>Name<input id="pName"></label>
+            <label>Headline<input id="pHead"></label>
+            <label>Email<input id="pEmail" type="email"></label>
+            <label>GitHub URL<input id="pGit"></label>
+            <label>LinkedIn URL<input id="pLin"></label>
+            <label class="sw"><input type="checkbox" id="pOpen"> Open to internships and entry-level roles</label>
+            <button class="btn" type="submit" style="justify-self:start">Save changes</button>
+          </form>
+        </div>
+        <div class="card pad">
+          <h3>Backup</h3>
+          <p class="hint" style="margin:0 0 12px">Data is stored in this browser. Copy the JSON to keep a backup.</p>
+          <textarea id="exp" rows="9" readonly style="width:100%;font-family:monospace;font-size:.75rem"></textarea>
+          <div class="btns" style="margin-top:12px"><button class="btn ghost" id="reset">Reset data</button><button class="btn" id="copy">Copy JSON</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="modal"><div class="box">
+  <h3 id="mTitle">New project</h3>
+  <form class="f" id="pForm">
+    <label>Title<input id="fTitle" required></label>
+    <label>Type<select id="fCat"><option value="site">Website</option><option value="app">Web App</option><option value="tool">Utility</option></select></label>
+    <label>Description<textarea id="fDesc" rows="3" required></textarea></label>
+    <label>Features (one per line)<textarea id="fFeat" rows="4"></textarea></label>
+    <label>Tags (comma separated)<input id="fTags"></label>
+    <div class="btns"><button type="button" class="btn ghost" id="cancel">Cancel</button><button class="btn" type="submit">Save</button></div>
+  </form>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var KEY='lavanya-admin-data',PW='admin123';
+function seed(){return{
+ profile:{name:'Yashwant K S',head:'BCA Student · Developer · Learner',email:'yashwant.email@gmail.com',git:'https://github.com/',lin:'https://www.linkedin.com/',open:true},
+ projects:[
+  {id:1,title:'Personal Portfolio',cat:'site',desc:'A responsive portfolio with dark mode, project filters and a contact section.',feat:['Sidebar navigation with smooth scrolling','Light and dark theme toggle','Project filters with detail popups'],tags:['HTML','CSS','JavaScript','Responsive']},
+  {id:2,title:'Todo List',cat:'tool',desc:'Add, complete and delete daily tasks, saved automatically in the browser.',feat:['Add, edit and delete tasks','Mark tasks as completed','Data saved with localStorage'],tags:['HTML','CSS','JavaScript','localStorage']},
+  {id:3,title:'Food Delivery',cat:'app',desc:'Browse dishes, add them to a cart and see the order total instantly.',feat:['Browse menu by category','Live quantity and total price','Responsive card layout'],tags:['HTML','CSS','JavaScript','DOM']}],
+ skills:[['HTML',4],['CSS',4],['JavaScript',4],['Python',4],['DBMS',4],['SQL',4],['AI Tools',2]].map(function(s,i){return{id:i+1,name:s[0],lvl:s[1]}}),
+ messages:[
+  {id:1,name:'Ananya R.',email:'ananya@example.com',text:'Hi, we have a front-end internship opening. Could you share your availability?',date:Date.now()-36e5*5,read:false},
+  {id:2,name:'Rahul K.',email:'rahul@example.com',text:'Loved your Food Delivery project. Do you take freelance work?',date:Date.now()-36e5*30,read:false},
+  {id:3,name:'Meera S.',email:'meera@example.com',text:'Thanks for the great portfolio template tips!',date:Date.now()-36e5*90,read:true}]}}
+var db;
+function load(){try{var r=localStorage.getItem(KEY);if(r){db=JSON.parse(r);return}}catch(e){}db=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}renderAll()}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function toast(t){var el=$('#toast');el.textContent=t;el.classList.add('show');setTimeout(function(){el.classList.remove('show')},2200)}
+function ago(ts){var h=Math.round((Date.now()-ts)/36e5);return h<1?'just now':h<24?h+'h ago':Math.round(h/24)+'d ago'}
+var catName={site:'Website',app:'Web App',tool:'Utility'};
+function uid(a){return a.reduce(function(m,x){return Math.max(m,x.id)},0)+1}
+
+/* views */
+function show(v){$$('.view').forEach(function(x){x.classList.toggle('on',x.id==='v-'+v)});$$('#nav button').forEach(function(b){b.classList.toggle('on',b.dataset.v===v)});window.scrollTo(0,0)}
+$('#nav').addEventListener('click',function(e){var b=e.target.closest('button');if(b)show(b.dataset.v)});
+
+function msgHtml(m,full){return '<div class="msg'+(m.read?'':' new')+'"><b>'+esc(m.name)+'</b> <small>'+esc(m.email)+' · '+ago(m.date)+'</small><p>'+esc(m.text)+'</p>'+(full?'<div class="act"><button class="btn sm ghost" data-read="'+m.id+'">'+(m.read?'Mark unread':'Mark read')+'</button><a class="btn sm ghost" style="text-decoration:none" href="mailto:'+esc(m.email)+'">Reply</a><button class="btn sm del" data-dm="'+m.id+'">Delete</button></div>':'')+'</div>'}
+
+function renderAll(){
+ var un=db.messages.filter(function(m){return!m.read}).length;
+ $('#unread').textContent=un;$('#unread').style.display=un?'':'none';
+ $('#greet').textContent='Welcome back, '+db.profile.name+'.';
+ $('#stats').innerHTML=[[db.projects.length,'Projects'],[db.skills.length,'Skills'],[un,'Unread messages'],[db.profile.open?'Open':'Closed','Availability']].map(function(s){return '<div class="card stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>'}).join('');
+ $('#bars').innerHTML=db.skills.map(function(s){return '<div class="bar"><span>'+esc(s.name)+'</span><i><u style="width:'+s.lvl*20+'%"></u></i><b>'+s.lvl+'</b></div>'}).join('')||'<p class="empty">No skills yet.</p>';
+ $('#recent').innerHTML=db.messages.slice().sort(function(a,b){return b.date-a.date}).slice(0,3).map(function(m){return msgHtml(m,false)}).join('')||'<p class="empty">No messages yet.</p>';
+ $('#pBody').innerHTML=db.projects.map(function(p){return '<tr><td><b>'+esc(p.title)+'</b><br><small style="color:var(--mu)">'+esc(p.desc)+'</small></td><td>'+catName[p.cat]+'</td><td>'+p.tags.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join('')+'</td><td><div class="act"><button class="btn sm ghost" data-ep="'+p.id+'">Edit</button><button class="btn sm del" data-dp="'+p.id+'">Delete</button></div></td></tr>'}).join('')||'<tr><td colspan="4" class="empty">No projects. Add your first one.</td></tr>';
+ $('#sList').innerHTML=db.skills.map(function(s){var d=[1,2,3,4,5].map(function(n){return '<button class="'+(n<=s.lvl?'on':'')+'" data-sl="'+s.id+':'+n+'" aria-label="Level '+n+'"></button>'}).join('');return '<div class="row"><div class="n">'+esc(s.name)+'<small>'+(s.lvl>=4?'Working Knowledge':s.lvl==3?'Intermediate':'Basic')+'</small></div><div class="lvl">'+d+'</div><button class="btn sm del" data-ds="'+s.id+'">Delete</button></div>'}).join('')||'<p class="empty">No skills yet.</p>';
+ $('#mList').innerHTML=db.messages.slice().sort(function(a,b){return b.date-a.date}).map(function(m){return msgHtml(m,true)}).join('')||'<p class="empty">Inbox is empty.</p>';
+ $('#exp').value=JSON.stringify(db,null,2);
+}
+
+/* projects */
+var editId=null;
+function openModal(p){editId=p?p.id:null;$('#mTitle').textContent=p?'Edit project':'New project';$('#fTitle').value=p?p.title:'';$('#fCat').value=p?p.cat:'site';$('#fDesc').value=p?p.desc:'';$('#fFeat').value=p?p.feat.join('\n'):'';$('#fTags').value=p?p.tags.join(', '):'';$('#modal').classList.add('open')}
+function closeModal(){$('#modal').classList.remove('open')}
+$('#addProject').onclick=function(){openModal()};
+document.querySelector('[data-add]').onclick=function(){show('projects');openModal()};
+$('#cancel').onclick=closeModal;
+$('#modal').addEventListener('click',function(e){if(e.target.id==='modal')closeModal()});
+$('#pForm').addEventListener('submit',function(e){e.preventDefault();
+ var o={title:$('#fTitle').value.trim(),cat:$('#fCat').value,desc:$('#fDesc').value.trim(),feat:$('#fFeat').value.split('\n').map(function(x){return x.trim()}).filter(Boolean),tags:$('#fTags').value.split(',').map(function(x){return x.trim()}).filter(Boolean)};
+ if(editId){db.projects=db.projects.map(function(p){return p.id===editId?Object.assign({id:editId},o):p})}else{o.id=uid(db.projects);db.projects.push(o)}
+ closeModal();save();toast('Project saved')});
+$('#pBody').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ if(b.dataset.ep)openModal(db.projects.filter(function(p){return p.id==b.dataset.ep})[0]);
+ if(b.dataset.dp&&confirm('Delete this project?')){db.projects=db.projects.filter(function(p){return p.id!=b.dataset.dp});save();toast('Project deleted')}});
+
+/* skills */
+$('#skillForm').addEventListener('submit',function(e){e.preventDefault();var n=$('#sName').value.trim();if(!n)return;db.skills.push({id:uid(db.skills),name:n,lvl:+$('#sLvl').value});$('#sName').value='';save();toast('Skill added')});
+$('#sList').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ if(b.dataset.sl){var a=b.dataset.sl.split(':');db.skills.forEach(function(s){if(s.id==a[0])s.lvl=+a[1]});save()}
+ if(b.dataset.ds){db.skills=db.skills.filter(function(s){return s.id!=b.dataset.ds});save();toast('Skill removed')}});
+
+/* messages */
+$('#mList').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ if(b.dataset.read){db.messages.forEach(function(m){if(m.id==b.dataset.read)m.read=!m.read});save()}
+ if(b.dataset.dm&&confirm('Delete this message?')){db.messages=db.messages.filter(function(m){return m.id!=b.dataset.dm});save()}});
+$('#readAll').onclick=function(){db.messages.forEach(function(m){m.read=true});save();toast('All marked as read')};
+
+/* settings */
+function fillProfile(){var p=db.profile;$('#pName').value=p.name;$('#pHead').value=p.head;$('#pEmail').value=p.email;$('#pGit').value=p.git;$('#pLin').value=p.lin;$('#pOpen').checked=p.open}
+$('#profForm').addEventListener('submit',function(e){e.preventDefault();db.profile={name:$('#pName').value.trim()||'Yashwant K S',head:$('#pHead').value.trim(),email:$('#pEmail').value.trim(),git:$('#pGit').value.trim(),lin:$('#pLin').value.trim(),open:$('#pOpen').checked};save();toast('Profile saved')});
+$('#copy').onclick=function(){var t=$('#exp');t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}toast(ok?'JSON copied':'Press and hold to copy')};
+$('#reset').onclick=function(){if(confirm('Reset all data to the defaults?')){db=seed();save();fillProfile();toast('Data reset')}};
+
+/* theme + auth */
+$('#theme').onclick=function(){var r=document.documentElement;var dark=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);var n=dark?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('lavanya-admin-theme',n)}catch(e){}};
+try{var th=localStorage.getItem('lavanya-admin-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+function authed(){try{return sessionStorage.getItem('lavanya-admin-auth')==='1'}catch(e){return false}}
+if(authed())$('#login').style.display='none';
+$('#loginForm').addEventListener('submit',function(e){e.preventDefault();if($('#pw').value===PW){try{sessionStorage.setItem('lavanya-admin-auth','1')}catch(x){}$('#login').style.display='none'}else{$('#loginErr').textContent='Incorrect password.'}});
+$('#logout').onclick=function(){try{sessionStorage.removeItem('lavanya-admin-auth')}catch(e){}$('#pw').value='';$('#login').style.display='flex'};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+
+load();fillProfile();renderAll();
+})();
+</script>
+</body>
+</html>
